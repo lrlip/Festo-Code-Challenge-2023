@@ -1,4 +1,4 @@
-def import_hammer_collection():
+def import_hammer_collection() -> dict(int, dict[str, int]):
     """Import the Hammer collection from file
 
     Returns:
@@ -35,32 +35,40 @@ def import_hammer_recipe():
     return recipes
 
 
-hammers = import_hammer_collection()
-recipes = import_hammer_recipe()
+def apply_hammer(hammer: dict) -> str:
+    """Apply a hammer to transform a key segment
 
+    Args:
+        hammer (dict): dict representing the hammer
 
-def apply_hammer(hammer):
+    Returns:
+        str: The transformed key segment
+    """
     return hammer['after']
 
 
-def is_valid_recipe(recipe):
-    # Function to check if recipe is valid
+def is_valid_recipe(recipe) -> None | str:
+    """Checks if a recipe is valid and retuns the resulting key
 
+    Args:
+        recipe (list): list of steps representing the recipe
+
+    Returns:
+        None | str: the resulting key if valid, otherwise None
+    """
     key_string = 'A'
 
     for step in recipe:
+        # split the string to individual letters 'test' --> ['t','e','s','t']
         key_list = list(key_string)
 
         hammer_index, hammer_position = map(int, step)
         # position cannot exceed length of the
-        if hammer_position > len(key_string):
-            return
-        # index cannot exceed number of hammers
-        elif hammer_index > len(hammers):
-            return
+        if hammer_position > len(key_string) or hammer_index > len(hammers):
+            return None
         # Key at the hammer position must be the same as the hammer used
         elif hammers[hammer_index]['before'] != key_string[hammer_position - 1]:
-            return
+            return None
         else:
             # Replace the entry in the list with the hammer
             key_list[hammer_position - 1] = apply_hammer(hammers[hammer_index])
@@ -68,6 +76,10 @@ def is_valid_recipe(recipe):
     return key_string
 
 
+hammers = import_hammer_collection()
+recipes = import_hammer_recipe()
+
+# Find and print the valid key string
 for recipe in recipes:
     key_string = is_valid_recipe(recipe=recipe)
     if key_string:
