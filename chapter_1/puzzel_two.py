@@ -1,6 +1,6 @@
-from brokendevice import BrokenDevice
+from cosmo_plaza.brokendevice import BrokenDevice
 
-device = BrokenDevice(filename='1/12_first_input.txt')
+device = BrokenDevice(filename='cosmo_plaza/12_first_input.txt')
 
 log_output = device.get_log_output()
 

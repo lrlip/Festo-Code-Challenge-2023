@@ -80,8 +80,27 @@ hammers = import_hammer_collection()
 recipes = import_hammer_recipe()
 
 # Find and print the valid key string
-for recipe in recipes:
-    key_string = is_valid_recipe(recipe=recipe)
-    if key_string:
-        print('valid key :', key_string)
+# for recipe in recipes:
+#     key_string = is_valid_recipe(recipe=recipe)
+#     if key_string:
+#         print('valid key :', key_string)
+#         break
+
+
+### CREATE ALL KEYS
+start_key = 'A'
+
+possible_keys = []
+
+possible_keys.append(start_key)
+i = 0
+for key in possible_keys:
+    for string in key:
+        
+    possible_keys.append(key + str(i))
+    i += 1
+    if i == 5:
         break
+    
+print(possible_keys)
+    
