@@ -1,4 +1,4 @@
-from brokendevice import BrokenDevice
+from utils.brokendevice import BrokenDevice
 
 device = BrokenDevice(filename='static/32_broken_final.txt',
                       input1_switch=[2, 3],
@@ -6,7 +6,3 @@ device = BrokenDevice(filename='static/32_broken_final.txt',
 
 log_output = device.get_log_output()
 print(log_output)
-
-
-
-

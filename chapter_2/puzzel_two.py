@@ -1,6 +1,6 @@
-from brokendevice import BrokenDevice
+from utils.brokendevice import BrokenDevice
 
-device = BrokenDevice(filename='2_knowledge_forge/22_broken_device_2.txt',
+device = BrokenDevice(filename='static/22_broken_device_2.txt',
                       input1_switch=[2, 3],
                       input2_switch=[1, 2])
 
