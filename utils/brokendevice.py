@@ -1,6 +1,6 @@
 OUTPUT_EXPR_CODE = {'Q': 'binary',
                     'E': 'number',
-                    'F': 'base36' }
+                    'F': 'base36'}
 
 
 MATH_EXPR_CODE = {'G': 'add',
@@ -48,7 +48,7 @@ class BrokenDevice(object):
                                    'input2': rule_log[1],
                                    'math_rule': rule_log[2],
                                    'output_type': rule_log[3],
-                                #    'output': rule_log[4],
+                                   #    'output': rule_log[4],
                                    }
         return rules_list
 
@@ -68,7 +68,7 @@ class BrokenDevice(object):
         int2 = self.bin_to_int(bin2)
         # based on the math rule get the output in int
         # int_out = self.math_exprs.get(MATH_EXPR_CODE.get(log.get('math_rule')))(int1, int2)
-        
+
         math_rule = MATH_EXPR_CODE.get(log.get('math_rule'))
         if math_rule == 'add':
             int_out = int1 + int2
@@ -82,10 +82,8 @@ class BrokenDevice(object):
             shift_input1 = self.shift_input(bin1, bin2)
             int_out = self.bin_to_int(shift_input1)
 
-
-
         int_module = round(self.get_modulus(int_out))
-    
+
         # Change the output to binary
         if log['output_type'] == 'Q':
             output = self.int_to_bin(int_module)
@@ -95,7 +93,7 @@ class BrokenDevice(object):
             output = self.base36(int_module)
         else:
             output = None
-        return [int1, int2, log.get('output'), output, OUTPUT_EXPR_CODE.get(log['output_type'])]
+        return str(output)
 
     def get_log_output(self) -> list:
         log_output = []
@@ -105,7 +103,7 @@ class BrokenDevice(object):
             if self.input1_switch:
                 log['input1'] = self.switch_input(
                     log['input1'],
-                    self.input1_switch[0],  
+                    self.input1_switch[0],
                     self.input1_switch[1]
                 )
             if self.input2_switch:
@@ -115,11 +113,9 @@ class BrokenDevice(object):
                     self.input2_switch[1]
                 )
             decode_line = self.decode_log_line(log)
-            print(decode_line)
             log_output.append(decode_line)
         return log_output
-    
-    
+
     @staticmethod
     def shift_input(binary_input: str, bin_direction: str):
         if bin_direction[0] == '1':
@@ -128,7 +124,6 @@ class BrokenDevice(object):
         else:
             output = binary_input[-1] + binary_input[:-1]
         return output
-
 
     @staticmethod
     def txt_to_bin(string):
@@ -142,7 +137,7 @@ class BrokenDevice(object):
     @staticmethod
     def int_to_bin(integer: int) -> bin:
         return format(int(integer), 'b')
-    
+
     @staticmethod
     def number_letter(number: int) -> str:
         round_number = int(round(number))
@@ -151,22 +146,21 @@ class BrokenDevice(object):
     @staticmethod
     def get_modulus(integer):
         return integer % 256
-    
+
     def base36(self, integer):
         binary = self.int_to_bin(integer)
-        
+
         bin = binary[:-4], binary[-4:]
         output = ''
         for base4 in bin:
             if base4 != '':
                 int4 = self.bin_to_int(base4)
-                if (int4 < 10): 
+                if (int4 < 10):
                     output += str(int4)
-                elif (int4 < 36): 
+                elif (int4 < 36):
                     output += chr(int4 + 87)
-                
+
         return output
-            
 
     @staticmethod
     def switch_input(input: str,

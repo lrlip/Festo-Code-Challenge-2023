@@ -9,7 +9,7 @@ def import_trap_balance():
         dict[list,] {1: [[a, b], [c, d]], 2: [[e, f, g][h, i]] }
     """
     trap_list = {}
-    with open("1\\13_trap_balance.txt", 'r') as f:
+    with open("static\\13_trap_balance.txt", 'r') as f:
         for line in f:
             line_idx_line = line.strip().split(': ')
             idx = line_idx_line[0]
