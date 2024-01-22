@@ -1,4 +1,4 @@
-from brokendevice import BrokenDevice
+from utils.brokendevice import BrokenDevice
 
 device = BrokenDevice(filename='static/22_broken_device_2.txt',
                       input1_switch=[2, 3],
