@@ -35,7 +35,7 @@ Every week the puzzle gets harder
     - 2.3 Sewer System - Traps to Balance (NOT - SOLVED)
         - f
 
-- Week 3: (SOLVED 2.3)
+- Week 3: (SOLVED 2/3)
     -   3.1 The Key Maker - Forging Long Keys (SOLVED)
         - Keys are now up to 30 characters which makes the list quite big
         " keys with around 30 segments. Pretty long. I cannot enumerate all possible keys of this length - at least not in an acceptable time. I will have to find a more efficient way of finding the key in that list, that can be forged with the key makers hammers."
