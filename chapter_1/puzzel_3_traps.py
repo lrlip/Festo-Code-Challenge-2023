@@ -9,7 +9,7 @@ def import_trap_balance():
         dict[list,] {1: [[a, b], [c, d]], 2: [[e, f, g][h, i]] }
     """
     trap_list = {}
-    with open("1\\13_trap_balance.txt", 'r') as f:
+    with open("static/13_trap_balance.txt", 'r') as f:
         for line in f:
             line_idx_line = line.strip().split(': ')
             idx = line_idx_line[0]
@@ -31,7 +31,6 @@ def is_weight_equal(trap):
     trap_right = trap[1]
     left_weight = sum(Fraction(1, flask) for flask in trap_left)
     right_weight = sum(Fraction(1, flask) for flask in trap_right)
-    print(left_weight, right_weight)
     return left_weight == right_weight
 
 
@@ -40,7 +39,6 @@ def is_weight_diverse(trap: list) -> bool:
     trap_weight = trap[0] + trap[1]
     len_traps = len(trap_weight)
     len_set_traps = len(set(trap_weight))
-    print(len_traps, len_set_traps)
     return len_traps == len_set_traps
 
 
@@ -57,7 +55,7 @@ for key in traplist:
     if is_items_equal(traplist[key]):
         if is_weight_equal(traplist[key]):
             if is_weight_diverse(traplist[key]):
-                print(traplist[key])
+                # print(traplist[key])
                 idx += key
 
 print(f'The total value is: {idx}')

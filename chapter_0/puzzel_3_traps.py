@@ -16,8 +16,8 @@ FLIPPED = ['flipped',
            'inverted',
            'switched']
 
-test_file = '03_trap_logs_test.txt'
-file = '03_trap_logs.txt'
+test_file = 'static/03_trap_logs_test.txt'
+file = 'static/03_trap_logs.txt'
 
 
 def file_to_dict(filename):
@@ -30,7 +30,7 @@ def file_to_dict(filename):
     return trap_dict
 
 
-def getTrapStateSum(traps):
+def getTrapStateSum(traps: str):
     """Get the trap log and turns it in the 
 
     Args:
@@ -59,5 +59,5 @@ def getTrapStateSum(traps):
 
 traps = file_to_dict(filename=file)
 
-
-print(trap_sum)
+trap_sum = getTrapStateSum(traps=traps)
+print('The sum of the trap is:', trap_sum)

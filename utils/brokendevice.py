@@ -12,16 +12,9 @@ MATH_EXPR_CODE = {'G': 'add',
 
 
 class BrokenDevice(object):
+    """Class representing the broken device"""
 
     output_expr = {'binary', 'out_binary'}
-
-    # math_exprs = {
-    #     "add": lambda x, y: x + y,
-    #     'substract': lambda x, y: x - y,
-    #     'multiply': lambda x, y: x * y,
-    #     'div' : lambda x, y: x / y,
-    #     'shift' : self.shift_input(x, y)
-    # }
 
     def __init__(self,
                  filename: str = None,
@@ -72,7 +65,7 @@ class BrokenDevice(object):
         math_rule = MATH_EXPR_CODE.get(log.get('math_rule'))
         if math_rule == 'add':
             int_out = int1 + int2
-        elif math_rule == 'subtract':
+        elif math_rule == 'substract':
             int_out = int1 - int2
         elif math_rule == 'multiply':
             int_out = int1 * int2
@@ -81,7 +74,8 @@ class BrokenDevice(object):
         elif math_rule == 'shift':
             shift_input1 = self.shift_input(bin1, bin2)
             int_out = self.bin_to_int(shift_input1)
-
+        else:
+            int_out = None
         int_module = round(self.get_modulus(int_out))
 
         # Change the output to binary

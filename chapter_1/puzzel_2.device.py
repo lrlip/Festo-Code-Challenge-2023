@@ -1,10 +1,17 @@
-from cosmo_plaza.brokendevice import BrokenDevice
+from utils.brokendevice import BrokenDevice
 
-device = BrokenDevice(filename='cosmo_plaza/12_first_input.txt')
+test_file = 'static/12_first_input.txt'
+device = BrokenDevice(filename=test_file)
+test_output = device.get_log_output()
+print('Test output:', test_output)
 
-log_output = device.get_log_output()
+second_test_file = 'static/12_second_input.txt'
+second_test_device = BrokenDevice(filename=second_test_file)
+second_output = second_test_device.get_log_output()
+print('seond teset output:', second_output)
 
-input_log_lines = {0: {
+
+final_lines = {0: {
     'input1': 'YXXXXYXY',
     'input2': 'XXXXXYXY',
     'math_rule': 'G',
@@ -17,7 +24,8 @@ input_log_lines = {0: {
     'output_type': 'Q',
 }
 }
-print(log_output)
-device = BrokenDevice(logs_dict=input_log_lines)
-log_output = device.get_log_output()
-print(log_output)
+
+final = BrokenDevice(logs_dict=final_lines)
+
+final_output = final.get_log_output()
+print('Checkpoint output:', final_output)

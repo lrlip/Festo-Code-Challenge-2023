@@ -1,11 +1,11 @@
-def import_hammer_collection() -> dict(int, dict[str, int]):
+def import_hammer_collection() -> dict:
     """Import the Hammer collection from file
 
     Returns:
         dict: dict containg the collection of hammers
     """
     hammer_collection = {}
-    with open('1\hammer_collection.txt', 'r') as f:
+    with open('static\hammer_collection.txt', 'r') as f:
         for line in f:
             number_hammer = line.split('. ')
             before_after = number_hammer[1].strip().split(' -> ')
@@ -23,7 +23,7 @@ def import_hammer_recipe():
     """
     recipe = []
     recipes = []
-    with open("1\\11_keymaker_recipe.txt", 'r') as recipe_file:
+    with open("static/11_keymaker_recipe.txt", 'r') as recipe_file:
         for line in recipe_file:
             line_recipe = line.split(' - ')
             recipe = []
@@ -48,7 +48,7 @@ def apply_hammer(hammer: dict) -> str:
 
 
 def is_valid_recipe(recipe) -> None | str:
-    """Checks if a recipe is valid and retuns the resulting key
+    """Checks if a recipe is valid and returns the resulting key
 
     Args:
         recipe (list): list of steps representing the recipe
@@ -59,14 +59,11 @@ def is_valid_recipe(recipe) -> None | str:
     key_string = 'A'
 
     for step in recipe:
-        # split the string to individual letters 'test' --> ['t','e','s','t']
         key_list = list(key_string)
 
         hammer_index, hammer_position = map(int, step)
-        # position cannot exceed length of the
         if hammer_position > len(key_string) or hammer_index > len(hammers):
             return None
-        # Key at the hammer position must be the same as the hammer used
         elif hammers[hammer_index]['before'] != key_string[hammer_position - 1]:
             return None
         else:
@@ -80,27 +77,8 @@ hammers = import_hammer_collection()
 recipes = import_hammer_recipe()
 
 # Find and print the valid key string
-# for recipe in recipes:
-#     key_string = is_valid_recipe(recipe=recipe)
-#     if key_string:
-#         print('valid key :', key_string)
-#         break
-
-
-### CREATE ALL KEYS
-start_key = 'A'
-
-possible_keys = []
-
-possible_keys.append(start_key)
-i = 0
-for key in possible_keys:
-    for string in key:
-        
-    possible_keys.append(key + str(i))
-    i += 1
-    if i == 5:
+for recipe in recipes:
+    key_string = is_valid_recipe(recipe=recipe)
+    if key_string:
+        print('valid key :', key_string)
         break
-    
-print(possible_keys)
-    
