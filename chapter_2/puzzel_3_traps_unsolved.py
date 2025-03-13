@@ -1,32 +1,27 @@
+# Chapter two
+
+import math
+import numpy as np
 from fractions import Fraction
+from utils.egyptian_fraction import EgyptianFraction
 
 
-def import_trap_balance(filename: str = None,
-                        dict_list: str = None):
-    """Import the trap balanced
-
-    Returns:
-        dict[list,] {1: [[a, b], [c, d]], 2: [[e, f, g][h, i]] }
-    """
-    trap_list = {}
-    if filename:
-        with open(filename, 'r') as f:
-            dict_list = f.read().splitlines()
-
-    for line in dict_list:
-        # print(line)
-        logline = line.strip()
-
-        line_idx_line = line.strip().split(': ')
-        idx = line_idx_line[0]
-        # print(line_idx_line)
-        if line_idx_line:
-            line_lr = line_idx_line[1].split(' - ')
-            left = [int(val) for val in line_lr[0].split()]
-            right = [val for val in line_lr[1].split()]
-            trap_list[idx] = [left, right]
-
+def read_trap_file(filename: str):
+    with open(filename, 'r') as f:
+        trap_list = f.read().splitlines()
     return trap_list
+
+
+trap_list = read_trap_file(filename='static/23_trap_right_side.txt')
+
+traps_not_balanced_list = read_trap_file(
+    filename='static/23_traps_not_balanced.txt')
+traps_balanced_list = read_trap_file(
+    filename='static/23_traps_balanced.txt')
+
+traps_chapter_2 = split_trap_list(trap_list=trap_list)
+traps_not_balanced = split_trap_list(traps_not_balanced_list)
+traps_balanced = split_trap_list(traps_balanced_list)
 
 
 def is_items_equal(trap: list) -> bool:
@@ -57,26 +52,63 @@ def is_weight_diverse(trap: list) -> bool:
     return len_traps == len_set_traps
 
 
-traplist = import_trap_balance(
-    filename="2_knowledge_forge/true_false.txt")
+def get_fraction(list: list):
+    nominator = sum(list)
+    denominator = np.prod(list)
+    return nominator, denominator
 
 
-# test_dict = {1: [[4, 4], [3, 6]],
-#              2: [[2, 4, 20], [2, 5, 10]],
-#              3: [[2, 99999999999999999999999999999999999], [3, 6]],
-#              4: [[4, 20], [5, 10]]}
+def prime_factors(number):
+    i = 2
+    factors = []
+    while i * i <= number:
+        if number % i:
+            i += 1
+        else:
+            number //= i
+            factors.append(i)
+    if number > 1:
+        factors.append(number)
+    return factors
 
-# traplist = test_dict
-for key in traplist:
-    if is_items_equal(traplist[key]):
-        print(key, traplist[key][0], left_weight(trap=traplist[key]))
+    return nom, denom
 
-        # if is_weight_equal(traplist[key]):
-        #     if is_weight_diverse(traplist[key]):
-        #         print(traplist[key])
-        #         idx += key
-        pass
-    else:
-        print(False)
 
-# print(f'The total value is: {idx}')
+def greedy_egyptian_fractions(num, denom, ):
+    # Greedy egyptian fraction method
+    factors = []
+
+    while num != 0:
+        # Greates unit factor less than nom/denom = X
+        x = math.ceil(denom/num)
+        factors.append(x)
+
+        num = x * num - denom
+        denom = denom * x
+        print(num)
+
+    return factors
+
+
+traps = traps_not_balanced
+
+for trap_idx in traps:
+    trap = traps.get(trap_idx)
+    left = trap['left']
+
+    num, denom = get_fraction(left)
+
+    nom_prime = prime_factors(num)
+    denom_prime = prime_factors(denom)
+
+    factors = greedy_egyptian_fractions(num, denom)
+    fnum, fdenom = get_fraction(factors)
+
+    print('left', left, Fraction(num, denom))
+    print('factors:', factors, Fraction(fnum, fdenom))
+    # if nom_prime[-1] > denom_prime[-1]:
+    #     print('False')
+
+    frac = Fraction(num, denom)
+
+    print(frac)
